@@ -1,8 +1,8 @@
-import { UserSearchCondition } from "./UserRepository";
 import { SelectQueryBuilder }  from "typeorm";
 import { User }                from "./entity/User";
+import { SearchCondition }     from "./SearchCondition";
 
-export default class SearchByAgeCondition implements UserSearchCondition {
+export default class SearchUserByAgeCondition implements SearchCondition<User> {
 
   constructor(private readonly age: number) {
   }

@@ -19,6 +19,10 @@ export default class Membership {
     @Column()
     purchaseDate: Date
 
-    @ManyToOne(() => User, (user) => user.memberships)
+    @ManyToOne(
+      () => User,
+      (user) => user.memberships,
+      { eager: true }
+    )
     owner: User
 }

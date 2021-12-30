@@ -1,17 +1,18 @@
-import { EntityRepository, Repository, SelectQueryBuilder } from "typeorm";
-import { User }                                             from "./entity/User";
-
-export interface UserSearchCondition {
-  applyQuery(queryBuilder: SelectQueryBuilder<User>): SelectQueryBuilder<User>
-}
+import { EntityRepository } from "typeorm";
+import { User }             from "./entity/User";
+import SearchableRepository from "./SearchableRepository";
+import { SearchCondition }  from "./SearchCondition";
 
 @EntityRepository(User)
-export default class UserRepository extends Repository<User> {
+export default class UserRepository extends SearchableRepository<User> {
 
-  async search(condition: UserSearchCondition) {
+  async search(condition: SearchCondition<User>) {
     return await condition
       .applyQuery(this.createQueryBuilder('user'))
       .getMany()
   }
 
+  protected alias(): string {
+    return "user";
+  }
 }

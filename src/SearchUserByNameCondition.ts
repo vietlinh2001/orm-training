@@ -1,8 +1,8 @@
-import { UserSearchCondition } from "./UserRepository";
-import { SelectQueryBuilder }  from "typeorm";
-import { User }                from "./entity/User";
+import { SelectQueryBuilder } from "typeorm";
+import { User }               from "./entity/User";
+import { SearchCondition }    from "./SearchCondition";
 
-export default class SearchByNameCondition implements UserSearchCondition {
+export default class SearchUserByNameCondition implements SearchCondition<User> {
 
   constructor(private readonly keyword: string) {
   }
@@ -12,5 +12,4 @@ export default class SearchByNameCondition implements UserSearchCondition {
       keyword: `%${ this.keyword }%`
     })
   }
-
 }
