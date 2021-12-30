@@ -1,21 +1,30 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import Name                                                  from "./Name";
+import Post                                       from "./Post";
 
 @Entity()
 export class User {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    firstName: string;
+  @Column(() => Name)
+  name: Name
 
-    @Column()
-    lastName: string;
+  @Column()
+  dateOfBirth: Date;
 
-    @Column()
-    age: number;
+  @Column()
+  description: string;
 
-    @Column()
-    description: string;
+  @OneToMany(
+    () => Post,
+    (post) => post.author
+  )
+  posts: Post[]
+
+  get age(): number {
+    return new Date().getFullYear() - this.dateOfBirth.getFullYear()
+  }
 
 }
