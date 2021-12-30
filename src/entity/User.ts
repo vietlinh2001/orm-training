@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import Address from "./Address";
 import Name                                                  from "./Name";
 import Post                                       from "./Post";
 
@@ -27,4 +28,6 @@ export class User {
     return new Date().getFullYear() - this.dateOfBirth.getFullYear()
   }
 
+  @Column(() => Address)
+  address:Address
 }
